@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface.csproj", "{B0DDA119-85D9-46C8-8EBB-70511A784ABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawDigits", "DrawDigits\DrawDigits.csproj", "{EB190378-58E5-424E-9B38-A916A19509CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.csproj", "{8FB4E651-2787-4D33-BFAE-10574E243F4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53ED8AF0-0A1C-4B92-8A0F-DB56FFDA864B}
+	EndGlobalSection
+EndGlobal
