@@ -124,7 +124,7 @@ namespace DrawDigits
             Invalidate();
         }
 
-        public void DrawPixel(int row, int col)
+        public void DrawPixel(int row, int col,int tone)
         {
             if (row > DATA_MATRIX.GetLength(0) - 1)
             {
@@ -142,7 +142,7 @@ namespace DrawDigits
             {
                 col = 0;
             }
-            DATA_MATRIX[row, col] = 255;
+            DATA_MATRIX[row, col] = tone;
             Invalidate();
         }
 

@@ -17,8 +17,8 @@ namespace NeuralNetwork
 
         public double[,] Weights { get => _weights; set { _weights = value; } }
 
-        protected double learningRate = 0.05d;//скорость обучения
-        protected const double lambda = 0.01;//регуляризация (L2)
+        protected double learningRate = 0.01d;//скорость обучения
+        protected const double lambda = 0.1;//регуляризация (L2)
         protected const double beta = 0.9;//скорость обновления весов
 
         protected int curNeurons;
@@ -163,7 +163,7 @@ namespace NeuralNetwork
         //Производная от функции RELU
         public double GetDerivative(double output)
         {
-            return (output > 0 ? 1 : output* 0.01);//output * (1 - output);
+            return /*(output > 0 ? 1 : output* 0.01);*/output * (1 - output);
         }
         public double GetGradient(double error, double derivative)
         {

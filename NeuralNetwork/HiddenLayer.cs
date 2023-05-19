@@ -19,27 +19,5 @@ namespace NeuralNetwork
             }
             nextLayer.Data = hiddenOut;
         }
-        //public override double[] MiniBatchBackwardPass(double[] errors)
-        //{
-        //    double[] error_sum = new double[prevNeurons];
-        //    double gradient = 0;
-
-        //    for (int j = 0; j < prevNeurons; j++)
-        //    {
-        //        error_sum[j] = 0;
-        //    }
-
-        //    for (int i = 0; i < curNeurons; i++)
-        //    {
-        //        gradient = GetGradient(errors[i], GetDerivative(Neurons[i].Output));
-        //        for (int j = 0; j < prevNeurons; j++)
-        //        {
-        //            gradient += lambda * Neurons[i].Weights[j];
-        //            error_sum[j] += Neurons[i].Weights[j] * Neurons[i].Inputs[j];
-        //            Neurons[i].Weights[j] -= gradient * learningRate * Neurons[i].Output;
-        //        }
-        //    }
-        //    return error_sum;
-        //}
     }
 }

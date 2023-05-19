@@ -54,8 +54,6 @@ namespace DiplomPrototype
             DataSetsFolder = Path.Combine(Environment.CurrentDirectory, "DataSets");
             random = new Random();
 
-            //_test_letters_digits_Set_Path = Path.Combine(DataSetsFolder, "emnist-balanced-test.csv");
-            //_test_letters_digits_Set_Path = Path.Combine(DataSetsFolder, "emnist-digits-test.csv");
             _test_letters_digits_Set_Path = Path.Combine(DataSetsFolder, "emnist-byclass-test.csv");
             _DATA_SET = File.ReadAllLines(_test_letters_digits_Set_Path);
 
@@ -86,7 +84,7 @@ namespace DiplomPrototype
             string[] symbol;
             do
             {
-                randomDigit = random.Next(0, _DATA_SET.Length);
+                randomDigit = random.Next(_DATA_SET.Length);
                 symbol = _DATA_SET[randomDigit].Split(',');
             } while (int.Parse(symbol[0]) >= _ANSWER_SET.Length);
             drawSymbolsClass1.DownloadSymbolToMatrix(symbol);
@@ -119,13 +117,24 @@ namespace DiplomPrototype
 
         private void drawDigitsClass1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (drawSymbolsClass1.IsDrawMode)
             {
-                if (drawSymbolsClass1.IsDrawMode)
+                switch (e.Button)
                 {
-                    drawSymbolsClass1.DrawPixel(e.Y / drawSymbolsClass1.currentPixelSize, e.X / drawSymbolsClass1.currentPixelSize);
-                    network.HandleOneDigit(network, drawSymbolsClass1.DATA_MATRIX);
-                    Laber_NetworkAnswer.Text = (_ANSWER_SET[Array.IndexOf(network.RESULTS, network.RESULTS.Max())]).ToString();
+                    case MouseButtons.Left:
+                        {
+                            drawSymbolsClass1.DrawPixel(e.Y / drawSymbolsClass1.currentPixelSize, e.X / drawSymbolsClass1.currentPixelSize, 255);
+                            network.HandleOneDigit(network, drawSymbolsClass1.DATA_MATRIX);
+                            Laber_NetworkAnswer.Text = (_ANSWER_SET[Array.IndexOf(network.RESULTS, network.RESULTS.Max())]).ToString();
+                            break;
+                        }
+                    case MouseButtons.Right:
+                        {
+                            drawSymbolsClass1.DrawPixel(e.Y / drawSymbolsClass1.currentPixelSize, e.X / drawSymbolsClass1.currentPixelSize, 0);
+                            network.HandleOneDigit(network, drawSymbolsClass1.DATA_MATRIX);
+                            Laber_NetworkAnswer.Text = (_ANSWER_SET[Array.IndexOf(network.RESULTS, network.RESULTS.Max())]).ToString();
+                            break;
+                        }
                 }
             }
         }

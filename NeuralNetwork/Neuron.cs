@@ -43,24 +43,19 @@ namespace NeuralNetwork
                 sum = double.Epsilon;
             }
 
-            sum = Max(sum, sum * 0.01);
+            //sum = Max(sum, sum * 0.01);
 
             //sum++;
 
-            //while (sum > 10 || sum < -10)
-            //{
-            //    sum *= 0.1;
-            //}
-
-            //if (sum > 5)
-            //{
-            //    sum /= Math.Pow(10, Math.Floor(Math.Log10(sum)));
-            //}
-            //else if (sum < -5)
-            //{
-            //    sum /= Math.Pow(10, Math.Floor(Math.Log10(-sum)));
-            //}
-            //sum = 1 / (1 + Math.Exp(-sum));
+            if (sum > 5)
+            {
+                sum /= Math.Pow(10, Math.Floor(Math.Log10(sum)));
+            }
+            else if (sum < -5)
+            {
+                sum /= Math.Pow(10, Math.Floor(Math.Log10(-sum)));
+            }
+            sum = 1 / (1 + Math.Exp(-sum));
 
             return sum;
         }

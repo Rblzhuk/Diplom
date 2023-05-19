@@ -19,58 +19,9 @@ namespace NeuralNetwork
             }
             net.RESULTS = GetAnswersToPercents(net.RESULTS);
         }
-        //public override double[] MiniBatchBackwardPass(double[] errors)
-        //{
-        //    double[] error_sum = new double[prevNeurons];
-        //    double gradient = 0;
-
-        //    for (int j = 0; j < prevNeurons; j++)
-        //    {
-        //        error_sum[j] = 0;
-        //    }
-
-        //    for (int i = 0; i < curNeurons; i++)
-        //    {
-        //        for (int j = 0; j < prevNeurons; j++)
-        //        {
-        //            gradient = GetGradient(errors[i], GetDerivative(Neurons[i].Output));
-        //            gradient += lambda * Neurons[i].Weights[j];
-        //            error_sum[j] += Neurons[i].Weights[j] * errors[i];
-        //            Neurons[i].Weights[j] -= gradient * learningRate * Neurons[i].Output;
-        //        }
-        //    }
-        //    return error_sum;
-        //}
 
         private double[] GetAnswersToPercents(double[] input)
         {
-            //double sum = 0;
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    input[i] = Math.Log(input[i]);
-            //    sum += input[i];
-            //}
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    input[i] -= sum;
-            //}
-            //input = ScaleInput(input);
-
-            //double[] result = new double[input.Length];
-            //double max = input.Max();
-            //double sum = 0;
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    double temp = input[i] - max;
-            //    result[i] = temp;
-            //    sum += temp;
-            //}
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    result[i] /= sum;
-            //}
-            //return result;
-
             double sum = 0;
             for (int i = 0; i < input.Length; i++)
             {
@@ -92,16 +43,6 @@ namespace NeuralNetwork
                     input[i] = double.Epsilon;
                 }
             }
-
-            //double sum = 0;
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    sum += input[i];
-            //}
-            //for (int i = 0; i < input.Length; i++)
-            //{
-            //    input[i] /= sum;
-            //}
 
             return input;
         }

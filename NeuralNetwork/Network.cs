@@ -70,18 +70,18 @@ namespace NeuralNetwork
 
             double lossFunction = 0;
 
-            int batchSize = 256;
+            int batchSize = 512;
             int miniBatchSize = 32;
-            int miniBatchCount = (int)(batchSize / miniBatchSize);
+            int miniBatchCount = batchSize / miniBatchSize;
             double[] mini_batch_errors = new double[ANSWER_SET.Length];
             double[] epoch_errors = new double[ANSWER_SET.Length];
             int[] mark_right_answers = new int[ANSWER_SET.Length];
 
             double[] prev_layer_errors;
 
-            int trainExpamle;
+            int randomTrainSymbolIndex;
 
-            int epochCount = 100;
+            int epochCount = 50;
             const double lossThreshold = 0.01d;
             do
             {
@@ -98,12 +98,12 @@ namespace NeuralNetwork
                     }
                     for (int m = 0; m < miniBatchSize; m++)
                     {
-                        trainExpamle = DownloadTrainSymbol(ANSWER_SET.Length);
+                        randomTrainSymbolIndex = DownloadTrainSymbol(ANSWER_SET.Length);
 
                         HandleOneDigit(network, drawSymbols.DATA_MATRIX);
                         for (int e = 0; e < RESULTS.Length; e++)
                         {
-                            mark_right_answers[e] = (e == trainExpamle ? 1 : 0);
+                            mark_right_answers[e] = (e == randomTrainSymbolIndex ? 1 : 0);
                             mini_batch_errors[e] += -mark_right_answers[e] * Math.Log(RESULTS[e]) - (1 - mark_right_answers[e]) * Math.Log(1 - RESULTS[e]);
                             //mini_batch_errors[e] += Math.Pow(mark_right_answers[e]- RESULTS[e],2);
                             //mini_batch_errors[e] += RESULTS[e] - mark_right_answers[e];
