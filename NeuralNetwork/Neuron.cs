@@ -40,18 +40,14 @@ namespace NeuralNetwork
             }
             if (double.IsNaN(sum) || double.IsInfinity(sum))
             {
-                sum = double.Epsilon;
+                sum = 1;
             }
 
-            //sum = Max(sum, sum * 0.01);
-
-            //sum++;
-
-            if (sum > 5)
+            if (sum > 10)
             {
                 sum /= Math.Pow(10, Math.Floor(Math.Log10(sum)));
             }
-            else if (sum < -5)
+            else if (sum < -10)
             {
                 sum /= Math.Pow(10, Math.Floor(Math.Log10(-sum)));
             }

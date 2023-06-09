@@ -1,0 +1,12 @@
+G:\C#\DiplomPrototype\DrawDigits\bin\Debug\DrawDigits.dll
+G:\C#\DiplomPrototype\DrawDigits\bin\Debug\DrawDigits.pdb
+G:\C#\DiplomPrototype\DrawDigits\obj\Debug\DrawSymbols.csproj.AssemblyReference.cache
+G:\C#\DiplomPrototype\DrawDigits\obj\Debug\DrawSymbols.csproj.CoreCompileInputs.cache
+G:\C#\DiplomPrototype\DrawDigits\obj\Debug\DrawDigits.dll
+G:\C#\DiplomPrototype\DrawDigits\obj\Debug\DrawDigits.pdb
+G:\C#\DiplomPrototype\DrawSymbols\bin\Debug\DrawDigits.dll
+G:\C#\DiplomPrototype\DrawSymbols\bin\Debug\DrawDigits.pdb
+G:\C#\DiplomPrototype\DrawSymbols\obj\Debug\DrawSymbols.csproj.AssemblyReference.cache
+G:\C#\DiplomPrototype\DrawSymbols\obj\Debug\DrawSymbols.csproj.CoreCompileInputs.cache
+G:\C#\DiplomPrototype\DrawSymbols\obj\Debug\DrawDigits.dll
+G:\C#\DiplomPrototype\DrawSymbols\obj\Debug\DrawDigits.pdb

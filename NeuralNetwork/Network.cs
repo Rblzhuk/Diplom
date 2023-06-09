@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using DrawDigits;
+using DrawSymbols;
+using NeuralNetworkConstructor;
 
 namespace NeuralNetwork
 {
@@ -15,37 +16,71 @@ namespace NeuralNetwork
         InputLayer inputLayer;
         HiddenLayer[] _HIDDEN_LAYERS;
         OutputLayer outputLayer;
-        Random random = new Random();
+        Random random;
         DrawSymbolsClass drawSymbols = null;
 
-        public string WeightsFolder = Path.Combine(Environment.CurrentDirectory, "Weights");
-        //private string _train_letters_digits_Set_Path = Path.Combine(Environment.CurrentDirectory, "DataSets", "emnist-digits-train.csv");
-        private string _train_letters_digits_Set_Path = Path.Combine(Environment.CurrentDirectory, "DataSets", "emnist-byclass-train.csv");
-
-        private const int _greateTrainfileSize = 697933;
+        private string trainSymbolsPath = NetworkParameters.trainSymbolsPath;
+        private string testSymbolsPath = NetworkParameters.testSymbolsPath;
 
         public enum MemoryMode { GET, SET }
         public enum NeuronType { Hidden, Output }
 
-        public double[] RESULTS;
-        private string[] _TRAIN_SET = null;
+        private string[] _TRAIN_SET;
+        private string[] _TEST_SET;
 
-        public Network(int inpNeurons, int hiddenLayersCount, int[] hidNeurons, int outNeurons)
+        private double[] _ACCURACY;
+
+        public double[] RESULTS { get; private set; }
+
+        private double[] _LOSS_TO_EPOCH;
+
+        private int[] _answersCount;
+        private int[] _rightAnswersCount;
+        private double _lossToEpoch;
+
+        public int trueIndex { get; private set; }
+        public int predictIndex { get; private set; }
+
+        public Network(int inpNeurons, int[] hidNeurons, int outNeurons, DrawSymbolsClass draw)
         {
+            _ACCURACY = new double[outNeurons];
+            _answersCount = new int[outNeurons];
+            _rightAnswersCount = new int[outNeurons];
+
+            trueIndex = -1;
+            predictIndex = -1;
+
             RESULTS = new double[outNeurons];
-            _TRAIN_SET = new string[_greateTrainfileSize];
-            _HIDDEN_LAYERS = new HiddenLayer[hiddenLayersCount];
-            for (int i = 0; i < _HIDDEN_LAYERS.Length; i++)
+            _TRAIN_SET = new string[NetworkParameters.trainFileSize];
+            _TEST_SET = new string[NetworkParameters.testFileSize];
+
+            drawSymbols = draw;
+
+            DownLoadSymbolsFile(_TEST_SET, NetworkParameters.testSymbolsPath);
+            DownloadAccurasy(MemoryMode.GET);
+            DownloadAverageLoss(MemoryMode.GET);
+
+            random = new Random();
+            _HIDDEN_LAYERS = new HiddenLayer[hidNeurons.Length];
+
+            if (_HIDDEN_LAYERS.Length > 0)
             {
-                _HIDDEN_LAYERS[i] = new HiddenLayer(hidNeurons[i], (i > 0 ? hidNeurons[i - 1] : inpNeurons), Network.NeuronType.Hidden, $"HiddenLayer{i + 1}");
+                for (int i = 0; i < _HIDDEN_LAYERS.Length; i++)
+                {
+                    _HIDDEN_LAYERS[i] = new HiddenLayer(hidNeurons[i], (i > 0 ? hidNeurons[i - 1] : inpNeurons), Network.NeuronType.Hidden, $"HiddenLayer{i + 1}");
+                }
+                outputLayer = new OutputLayer(outNeurons, hidNeurons[hidNeurons.Length - 1], Network.NeuronType.Output, "OutputLayer");
             }
-            outputLayer = new OutputLayer(outNeurons, hidNeurons[hidNeurons.Length - 1], Network.NeuronType.Output, "OutputLayer");
+            else
+            {
+                outputLayer = new OutputLayer(outNeurons, inpNeurons, Network.NeuronType.Output, "OutputLayer");
+            }
         }
 
-        public void HandleOneDigit(Network net, int[,] DATA_MATRIX)
+        public void StraightForward(int[,] DATA_MATRIX)
         {
-            inputLayer = new InputLayer(DATA_MATRIX, DATA_MATRIX.GetLength(0), DATA_MATRIX.GetLength(1));
             //Данные для скрытого слоя загружаются тут, а не во входном слое, из-за несогласованности доступа классов этих слоёв
+            inputLayer = new InputLayer(DATA_MATRIX, DATA_MATRIX.GetLength(0), DATA_MATRIX.GetLength(1));
 
             if (_HIDDEN_LAYERS.Length > 0)
             {
@@ -56,39 +91,34 @@ namespace NeuralNetwork
                 }
                 _HIDDEN_LAYERS[_HIDDEN_LAYERS.Length - 1].StraightPass(null, outputLayer);
             }
+            else
+            {
+                outputLayer.Data = inputLayer.outputs;
+            }
 
-            outputLayer.StraightPass(net, null);
+            outputLayer.StraightPass(this, null);
+
+            predictIndex = Array.IndexOf(RESULTS, RESULTS.Max());
         }
 
-        public void Train(Network network, DrawSymbolsClass draw, string[] ANSWER_SET)
+        public void Train(Network network)
         {
-            DownLoadTrainFile();
-
-            drawSymbols = draw;
+            ResetAccuracy();
+            DownLoadSymbolsFile(_TRAIN_SET, trainSymbolsPath);
 
             int i = 0;
+            int miniBatchSize = NetworkParameters.minibatchSize;
+            int miniBatchCount = NetworkParameters.minibatchCount;
+            int epochCount = NetworkParameters.epochCount;
 
-            double lossFunction = 0;
+            double[] mini_batch_errors = new double[RESULTS.Length];
 
-            int batchSize = 512;
-            int miniBatchSize = 32;
-            int miniBatchCount = batchSize / miniBatchSize;
-            double[] mini_batch_errors = new double[ANSWER_SET.Length];
-            double[] epoch_errors = new double[ANSWER_SET.Length];
-            int[] mark_right_answers = new int[ANSWER_SET.Length];
+            int[] mark_right_answers = new int[RESULTS.Length];
 
             double[] prev_layer_errors;
-
-            int randomTrainSymbolIndex;
-
-            int epochCount = 50;
-            const double lossThreshold = 0.01d;
             do
             {
-                for (int e = 0; e < epoch_errors.Length; e++)
-                {
-                    epoch_errors[e] = 0;
-                }
+                _lossToEpoch = 0;
                 //Прохождение мини-батчей
                 for (int c = 0; c < miniBatchCount; c++)
                 {
@@ -98,14 +128,13 @@ namespace NeuralNetwork
                     }
                     for (int m = 0; m < miniBatchSize; m++)
                     {
-                        randomTrainSymbolIndex = DownloadTrainSymbol(ANSWER_SET.Length);
+                        HandleRandomSymbolFromSet(_TRAIN_SET, RESULTS.Length);
 
-                        HandleOneDigit(network, drawSymbols.DATA_MATRIX);
                         for (int e = 0; e < RESULTS.Length; e++)
                         {
-                            mark_right_answers[e] = (e == randomTrainSymbolIndex ? 1 : 0);
+                            mark_right_answers[e] = (e == trueIndex ? 1 : 0);
                             mini_batch_errors[e] += -mark_right_answers[e] * Math.Log(RESULTS[e]) - (1 - mark_right_answers[e]) * Math.Log(1 - RESULTS[e]);
-                            //mini_batch_errors[e] += Math.Pow(mark_right_answers[e]- RESULTS[e],2);
+                            //mini_batch_errors[e] += Math.Pow(mark_right_answers[e] - RESULTS[e], 2);
                             //mini_batch_errors[e] += RESULTS[e] - mark_right_answers[e];
                             if (double.IsNaN(mini_batch_errors[e]) || double.IsInfinity(mini_batch_errors[e]))
                             {
@@ -117,7 +146,7 @@ namespace NeuralNetwork
                     {
                         mini_batch_errors[e] /= miniBatchSize;
                         //mini_batch_errors[e] *= 1 / miniBatchSize;
-                        epoch_errors[e] += mini_batch_errors[e];
+                        _lossToEpoch += mini_batch_errors[e];
                     }
                     prev_layer_errors = outputLayer.MiniBatchBackwardPass(mini_batch_errors);
                     for (int h = _HIDDEN_LAYERS.Length - 1; h >= 0; h--)
@@ -125,62 +154,57 @@ namespace NeuralNetwork
                         prev_layer_errors = _HIDDEN_LAYERS[h].MiniBatchBackwardPass(prev_layer_errors);
                     }
                 }
-                lossFunction = 0;
-                for (int e = 0; e < epoch_errors.Length; e++)
-                {
-                    epoch_errors[e] /= miniBatchCount;
-                    lossFunction += epoch_errors[e];
-                }
-                lossFunction /= epoch_errors.Length;
-                //prev_layer_errors = outputLayer.MiniBatchBackwardPass(epoch_errors);
-                //for (int h = _HIDDEN_LAYERS.Length - 1; h >= 0; h--)
-                //{
-                //    prev_layer_errors = _HIDDEN_LAYERS[h].MiniBatchBackwardPass(prev_layer_errors);
-                //}
-
+                _lossToEpoch /= mini_batch_errors.Length;
+                _lossToEpoch /= miniBatchCount;
+                DownloadAverageLoss(MemoryMode.SET);
                 i++;
-            } while (i < epochCount);
+            } while (_lossToEpoch > NetworkParameters.lossThreshold && i < epochCount);
             for (int h = 0; h < _HIDDEN_LAYERS.Length; h++)
             {
                 _HIDDEN_LAYERS[h].WeightInitialize(MemoryMode.SET, $"HiddenLayer{h + 1}");
             }
             outputLayer.WeightInitialize(MemoryMode.SET, "OutputLayer");
+            DownloadAverageLoss(MemoryMode.GET);
+            ResetAccuracy();
             //MessageBox.Show($"Пройдёно эпох {i}, погрешность {lossFunction}");
         }
 
-        public int DownloadTrainSymbol(int answerSetLength)
+        private void HandleRandomSymbolFromSet(string[] symbolsArray, int maxAnswerIndex)
         {
-            random = new Random();
             int randomRow;
             int searchingIndex;
             string[] symbol = null;
             string buf;
             do
             {
-                searchingIndex = random.Next(_TRAIN_SET.Length);
-                symbol = _TRAIN_SET[searchingIndex].Split(',');
-            } while (int.Parse(symbol[0]) >= answerSetLength);
+                searchingIndex = random.Next(symbolsArray.Length);
+                symbol = symbolsArray[searchingIndex].Split(',');
+            } while (int.Parse(symbol[0]) >= maxAnswerIndex);
+
             drawSymbols.DownloadSymbolToMatrix(symbol);
+            drawSymbols.MNISTNormalizeMatrix();
+            StraightForward(drawSymbols.DATA_MATRIX);
 
-            randomRow = random.Next(_TRAIN_SET.Length);
+            randomRow = random.Next(symbolsArray.Length);
 
-            buf = _TRAIN_SET[searchingIndex];
-            _TRAIN_SET[searchingIndex] = _TRAIN_SET[randomRow];
-            _TRAIN_SET[randomRow] = buf;
+            buf = symbolsArray[searchingIndex];
+            symbolsArray[searchingIndex] = symbolsArray[randomRow];
+            symbolsArray[randomRow] = buf;
 
-            return int.Parse(symbol[0]);
+            trueIndex = int.Parse(symbol[0]);
+
+            UpdateAccuracy();
         }
 
-        private void DownLoadTrainFile()
+        private void DownLoadSymbolsFile(string[] symbolsArray, string filePath)
         {
-            int usingFileSize;
             int i = 0;
             string row;
-            using (StreamReader streamReader = new StreamReader(_train_letters_digits_Set_Path))
+            using (StreamReader streamReader = new StreamReader(filePath))
             {
-                while ((row = streamReader.ReadLine()) != null)
+                while ((row = streamReader.ReadLine()) != null && i < symbolsArray.Length)
                 {
-                    _TRAIN_SET[i] = row;
+                    symbolsArray[i] = row;
                     i++;
                 }
                 streamReader.Close();
@@ -189,25 +213,198 @@ namespace NeuralNetwork
 
         public void ResetWeights()
         {
-            DialogResult dialog = MessageBox.Show("Вы действительно хотите удалить все веса нейросети?", "Внимание!", MessageBoxButtons.YesNo);
-            if (dialog == DialogResult.Yes)
+            for (int i = 0; i < _HIDDEN_LAYERS.Length; i++)
             {
-                for (int i = 0; i < _HIDDEN_LAYERS.Length; i++)
-                {
-                    ResetWeights($"HiddenLayer{i + 1}");
-                }
-                ResetWeights("OutputLayer");
-                MessageBox.Show("Для всех весов заданы случайные значения");
+                ResetWeights($"HiddenLayer{i + 1}");
             }
+            ResetWeights("OutputLayer");
+            ResetAccuracy();
+            DeleteLossStatistic();
         }
 
         private void ResetWeights(string layerType)
         {
             XmlDocument weights_doc = new XmlDocument();
-            weights_doc.Load($"{Path.Combine(WeightsFolder, layerType)}.xml");
+            weights_doc.Load($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml");
             XmlElement weights_root = weights_doc.DocumentElement;
             weights_root.RemoveAll();
-            weights_doc.Save($"{Path.Combine(WeightsFolder, layerType)}.xml");
+            weights_doc.Save($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml");
+        }
+
+        private void ResetAccuracy()
+        {
+            for (int i = 0; i < NetworkParameters.ANSWER_SET.Length; i++)
+            {
+                _ACCURACY[i] = 0;
+                _answersCount[i] = 0;
+                _rightAnswersCount[i] = 0;
+            }
+            XmlDocument accuracyDoc = new XmlDocument();
+            XmlElement accuracyRoot;
+            accuracyDoc.Load($"{Path.Combine(NetworkParameters.accuracyPath)}");
+            accuracyRoot = accuracyDoc.DocumentElement;
+            accuracyRoot.RemoveAll();
+            accuracyDoc.Save($"{Path.Combine(NetworkParameters.accuracyPath)}");
+        }
+        private void DeleteLossStatistic()
+        {
+            XmlDocument lossDoc = new XmlDocument();
+            XmlElement lossRoot;
+            lossDoc.Load($"{Path.Combine(NetworkParameters.averageLossPath)}");
+            lossRoot = lossDoc.DocumentElement;
+            lossRoot.RemoveAll();
+            lossDoc.Save($"{Path.Combine(NetworkParameters.averageLossPath)}");
+        }
+        private void UpdateAccuracy()
+        {
+            if (_answersCount[trueIndex] < 0)
+            {
+                _answersCount[trueIndex] = 0;
+                _rightAnswersCount[trueIndex] = 0;
+            }
+            _answersCount[trueIndex]++;
+            if (trueIndex == predictIndex)
+            {
+                _rightAnswersCount[trueIndex]++;
+            }
+            _ACCURACY[trueIndex] = _rightAnswersCount[trueIndex] / (double)_answersCount[trueIndex];
+        }
+        //оценка точности работы нейросети
+        public void AccuracyAssessment()
+        {
+
+            for (int i = 0; i < NetworkParameters.accuracyTestsCount; i++)
+            {
+                PredictRandomTestSymbol();
+            }
+        }
+
+        public void PredictRandomTestSymbol()
+        {
+            HandleRandomSymbolFromSet(_TEST_SET, RESULTS.Length);
+            DownloadAccurasy(MemoryMode.SET);
+        }
+
+        private void DownloadAccurasy(MemoryMode mode)
+        {
+            XmlDocument accuracyDoc = new XmlDocument();
+            XmlElement accuracyRoot;
+            XmlElement accuracyElement;
+            XmlElement answersCountElement;
+            XmlElement rightAnswersCountElement;
+            if (File.Exists($"{Path.Combine(NetworkParameters.accuracyPath)}"))
+            {
+                accuracyDoc.Load($"{Path.Combine(NetworkParameters.accuracyPath)}");
+                accuracyRoot = accuracyDoc.DocumentElement;
+            }
+            else
+            {
+                accuracyRoot = accuracyDoc.CreateElement("Accuracy");
+                accuracyDoc.AppendChild(accuracyRoot);
+            }
+
+            if (accuracyRoot.ChildNodes.Count < NetworkParameters.ANSWER_SET.Length)
+            {
+                int accuracyElementCount = accuracyRoot.ChildNodes.Count;
+                for (int i = 0; i < NetworkParameters.ANSWER_SET.Length - accuracyElementCount; i++)
+                {
+                    accuracyElement = accuracyDoc.CreateElement($"class_{i}");
+                    answersCountElement = accuracyDoc.CreateElement($"answersCount");
+                    rightAnswersCountElement = accuracyDoc.CreateElement($"rightAnswersCount");
+
+                    answersCountElement.InnerText = "-1";
+                    rightAnswersCountElement.InnerText = "-1";
+
+                    accuracyElement.AppendChild(answersCountElement);
+                    accuracyElement.AppendChild(rightAnswersCountElement);
+                    accuracyRoot.AppendChild(accuracyElement);
+                }
+                accuracyDoc.Save((NetworkParameters.accuracyPath));
+            }
+
+            switch (mode)
+            {
+                case MemoryMode.GET:
+                    {
+                        for (int i = 0; i < NetworkParameters.ANSWER_SET.Length; i++)
+                        {
+                            _answersCount[i] = int.Parse(accuracyRoot.ChildNodes.Item(i).SelectSingleNode("answersCount").InnerText, System.Globalization.CultureInfo.InvariantCulture);
+                            _rightAnswersCount[i] = int.Parse(accuracyRoot.ChildNodes.Item(i).SelectSingleNode("rightAnswersCount").InnerText, System.Globalization.CultureInfo.InvariantCulture);
+                            if (_answersCount[i] > 0)
+                            {
+                                _ACCURACY[i] = _rightAnswersCount[i] / (double)_answersCount[i];
+                            }
+                            else
+                            {
+                                _ACCURACY[i] = -0.1;
+                            }
+                        }
+                        break;
+                    }
+                case MemoryMode.SET:
+                    {
+                        accuracyRoot.ChildNodes.Item(trueIndex).SelectSingleNode("answersCount").InnerText = _answersCount[trueIndex].ToString();
+                        accuracyRoot.ChildNodes.Item(trueIndex).SelectSingleNode("rightAnswersCount").InnerText = _rightAnswersCount[trueIndex].ToString();
+                        accuracyDoc.Save((NetworkParameters.accuracyPath));
+                        break;
+                    }
+            }
+        }
+        private void DownloadAverageLoss(MemoryMode mode)
+        {
+            XmlDocument lossDoc = new XmlDocument();
+            XmlElement lossRoot;
+            XmlElement lossElement;
+            if (File.Exists($"{Path.Combine(NetworkParameters.averageLossPath)}"))
+            {
+                lossDoc.Load($"{Path.Combine(NetworkParameters.averageLossPath)}");
+                lossRoot = lossDoc.DocumentElement;
+            }
+            else
+            {
+                lossRoot = lossDoc.CreateElement("AverageLoss");
+
+                lossDoc.AppendChild(lossRoot);
+                lossDoc.Save(NetworkParameters.averageLossPath);
+            }
+
+            switch (mode)
+            {
+                case MemoryMode.GET:
+                    {
+                        _LOSS_TO_EPOCH = new double[lossRoot.ChildNodes.Count];
+                        for (int i = 0; i < _LOSS_TO_EPOCH.Length; i++)
+                        {
+                            _LOSS_TO_EPOCH[i] = double.Parse(lossRoot.ChildNodes.Item(i).InnerText.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        break;
+                    }
+                case MemoryMode.SET:
+                    {
+                        lossElement = lossDoc.CreateElement($"loss");
+
+                        lossElement.InnerText = _lossToEpoch.ToString();
+
+                        lossRoot.AppendChild(lossElement);
+                        lossDoc.Save(NetworkParameters.averageLossPath);
+                        break;
+                    }
+            }
+        }
+
+        public double[] GetAccuracyArray()
+        {
+            DownloadAverageLoss(MemoryMode.GET);
+            return _ACCURACY;
+        }
+        public double[] GetLossArray()
+        {
+            return _LOSS_TO_EPOCH;
+        }
+
+        public int GetPredictionCountToSession()
+        {
+            return _answersCount.Sum();
         }
     }
 }

@@ -54,10 +54,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DrawDigits\DrawDigits.csproj">
+    <ProjectReference Include="..\DrawSymbols\DrawSymbols.csproj">
       <Project>{eb190378-58e5-424e-9b38-a916a19509cf}</Project>
-      <Name>DrawDigits</Name>
+      <Name>DrawSymbols</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NeuralNetworkConstructor\NeuralNetworkConstructor.csproj">
+      <Project>{df8fc1ee-4744-4878-8d5c-6518cfb6f5db}</Project>
+      <Name>NeuralNetworkConstructor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

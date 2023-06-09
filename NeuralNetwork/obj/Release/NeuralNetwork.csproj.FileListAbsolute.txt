@@ -1,0 +1,2 @@
+G:\C#\DiplomPrototype\NeuralNetwork\obj\Release\NeuralNetwork.csproj.AssemblyReference.cache
+G:\C#\DiplomPrototype\NeuralNetwork\obj\Release\NeuralNetwork.csproj.CoreCompileInputs.cache

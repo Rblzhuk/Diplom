@@ -1,0 +1,6 @@
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\bin\Release\NeuralNetworkConstructor.dll
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\bin\Release\NeuralNetworkConstructor.pdb
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\obj\Release\NeuralNetworkConstructor.csproj.AssemblyReference.cache
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\obj\Release\NeuralNetworkConstructor.csproj.CoreCompileInputs.cache
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\obj\Release\NeuralNetworkConstructor.dll
+G:\C#\DiplomPrototype\NeuralNetworkConstructor\obj\Release\NeuralNetworkConstructor.pdb

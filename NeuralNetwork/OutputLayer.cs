@@ -17,7 +17,7 @@ namespace NeuralNetwork
                 Neurons[i].Output = Neurons[i].Output;
                 net.RESULTS[i] = Neurons[i].Output;
             }
-            net.RESULTS = GetAnswersToPercents(net.RESULTS);
+            //net.RESULTS = GetAnswersToPercents(net.RESULTS);
         }
 
         private double[] GetAnswersToPercents(double[] input)

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using NeuralNetworkConstructor;
 
 namespace NeuralNetwork
 {
@@ -17,9 +18,9 @@ namespace NeuralNetwork
 
         public double[,] Weights { get => _weights; set { _weights = value; } }
 
-        protected double learningRate = 0.01d;//скорость обучения
-        protected const double lambda = 0.1;//регуляризация (L2)
-        protected const double beta = 0.9;//скорость обновления весов
+        protected double learningRate = NetworkParameters.learningRate;//скорость обучения
+        protected double lambda = NetworkParameters.regilarization;//регуляризация (L2)
+        protected double beta = NetworkParameters.gradientMoment;//скорость обновления весов
 
         protected int curNeurons;
         protected int prevNeurons;
@@ -66,9 +67,9 @@ namespace NeuralNetwork
             double[,] _weights = new double[curNeurons, prevNeurons];
             XmlDocument weights_doc = new XmlDocument();
             XmlElement weights_root;
-            if (File.Exists($"{Path.Combine(Environment.CurrentDirectory, "Weights", layerType)}.xml"))
+            if (File.Exists($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml"))
             {
-                weights_doc.Load($"{Path.Combine(Environment.CurrentDirectory, "Weights", layerType)}.xml");
+                weights_doc.Load($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml");
                 weights_root = weights_doc.DocumentElement;
             }
             else
@@ -76,7 +77,6 @@ namespace NeuralNetwork
                 weights_root = weights_doc.CreateElement("Weights");
                 weights_doc.AppendChild(weights_root);
             }
-            Random random = new Random();
             int weightsElementCount = weights_root.ChildNodes.Count;
 
             if (weights_root.ChildNodes.Count < curNeurons * prevNeurons)
@@ -88,10 +88,7 @@ namespace NeuralNetwork
                     weight.InnerText = (random.Next(-99999, 99999) * 0.0001).ToString();
                     weights_root.AppendChild(weight);
                 }
-                MessageBox.Show($"Количество весов в файле и в параметрах {layerType} слоя не совпадают\n" +
-                    $"Количество весов в файле: {weightsElementCount}, количество весов в параметрах слоя: {curNeurons * prevNeurons}\n" +
-                    $"Текущих: {curNeurons}, предыдущих: {prevNeurons}");
-                weights_doc.Save($"{Path.Combine(Environment.CurrentDirectory, "Weights", layerType)}.xml");
+                weights_doc.Save($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml");
             }
 
             switch (mode)
@@ -116,7 +113,7 @@ namespace NeuralNetwork
                             weights_root.ChildNodes.Item(_weights.GetLength(1) * i + j).InnerText = _neurons[i].Weights[j].ToString();
                         }
                     }
-                    weights_doc.Save($"{Path.Combine(Environment.CurrentDirectory, "Weights", layerType)}.xml");
+                    weights_doc.Save($"{Path.Combine(NetworkParameters.weightsPath, layerType)}.xml");
                     break;
             }
             return _weights;
@@ -143,6 +140,10 @@ namespace NeuralNetwork
                 {
                     gradient = GetGradient(errors[i], GetDerivative(Neurons[i].Output));
                     gradient += lambda * Neurons[i].Weights[j];
+                    if (double.IsNaN(gradient) || double.IsInfinity(gradient))
+                    {
+                        gradient=double.Epsilon;
+                    }
 
                     update_speed[j] = beta * update_speed[j] - learningRate * gradient; // вычисляем новую скорость
                     error_sum[j] += Neurons[i].Weights[j] * update_speed[j];
@@ -163,7 +164,7 @@ namespace NeuralNetwork
         //Производная от функции RELU
         public double GetDerivative(double output)
         {
-            return /*(output > 0 ? 1 : output* 0.01);*/output * (1 - output);
+            return output * (1 - output);
         }
         public double GetGradient(double error, double derivative)
         {

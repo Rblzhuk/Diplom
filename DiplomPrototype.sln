@@ -5,9 +5,11 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface.csproj", "{B0DDA119-85D9-46C8-8EBB-70511A784ABB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawDigits", "DrawDigits\DrawDigits.csproj", "{EB190378-58E5-424E-9B38-A916A19509CF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.csproj", "{8FB4E651-2787-4D33-BFAE-10574E243F4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetworkConstructor", "NeuralNetworkConstructor\NeuralNetworkConstructor.csproj", "{DF8FC1EE-4744-4878-8D5C-6518CFB6F5DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawSymbols", "DrawSymbols\DrawSymbols.csproj", "{EB190378-58E5-424E-9B38-A916A19509CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0DDA119-85D9-46C8-8EBB-70511A784ABB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FB4E651-2787-4D33-BFAE-10574E243F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8FC1EE-4744-4878-8D5C-6518CFB6F5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8FC1EE-4744-4878-8D5C-6518CFB6F5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8FC1EE-4744-4878-8D5C-6518CFB6F5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8FC1EE-4744-4878-8D5C-6518CFB6F5DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB190378-58E5-424E-9B38-A916A19509CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
