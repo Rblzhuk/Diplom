@@ -13,7 +13,7 @@ namespace DrawSymbols
         public DrawSymbolsClass(int rows, int columns, int standartWeight, int standartHeight, int drawWeight, int drawHeight) : base()
         {
             _matrixRows = rows;
-            _matrixColumns=columns;
+            _matrixColumns = columns;
 
             _DATA_MATRIX = new int[_matrixRows, _matrixColumns];
             DATA_MATRIX = DATA_MATRIX;
@@ -31,6 +31,29 @@ namespace DrawSymbols
             scaledWeight = _currentWeight / _DATA_MATRIX.GetLength(1);
             scaledHeight = _currentHeight / _DATA_MATRIX.GetLength(0);
         }
+
+        public DrawSymbolsClass() : base()
+        {
+            _matrixRows = 28;
+            _matrixColumns = 28;
+
+            _DATA_MATRIX = new int[_matrixRows, _matrixColumns];
+            DATA_MATRIX = DATA_MATRIX;
+
+            this._standartWeight = 224;
+            this._standartHeight = 224;
+
+            this.drawWeight = drawWeight;
+            this.drawHeight = drawHeight;
+
+            _currentWeight = this._standartWeight;
+            _currentHeight = this._standartHeight;
+
+            _isDrawMode = false;
+            scaledWeight = _currentWeight / _DATA_MATRIX.GetLength(1);
+            scaledHeight = _currentHeight / _DATA_MATRIX.GetLength(0);
+        }
+
         public int scaledWeight;
         public int scaledHeight;
 
@@ -94,7 +117,7 @@ namespace DrawSymbols
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Brush pixelColor = null;
+            Brush pixelColor=null;
             for (int i = 0; i < DATA_MATRIX.GetLength(0); i++)
             {
                 for (int j = 0; j < DATA_MATRIX.GetLength(1); j++)

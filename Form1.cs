@@ -52,8 +52,8 @@ namespace DiplomPrototype
             if (network.trueIndex >= 0)
             {
                 Label_RightAnswer.Text = NetworkParameters.ANSWER_SET[network.trueIndex];
-                Laber_NetworkAnswer.Text = NetworkParameters.ANSWER_SET[network.predictIndex];
             }
+            Laber_NetworkAnswer.Text = NetworkParameters.ANSWER_SET[network.predictIndex];
             Label_precitionCountToSession.Text = network.GetPredictionCountToSession().ToString();
             label_epochCount.Text = network.GetLossArray().Length.ToString();
         }
@@ -156,8 +156,13 @@ namespace DiplomPrototype
             chart_lossToEpoch.Series[0].Points.Clear();
             for (int i = 0; i < lossToEpoch.Length; i++)
             {
-                chart_lossToEpoch.Series[0].Points.AddXY(i+1, lossToEpoch[i]);
+                chart_lossToEpoch.Series[0].Points.AddXY(i + 1, lossToEpoch[i]);
             }
+        }
+
+        private void drawSymbolsClass1_MouseMove_1(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

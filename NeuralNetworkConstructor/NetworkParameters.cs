@@ -31,7 +31,8 @@ namespace NeuralNetworkConstructor
 
         public static int[] NEURONS_COUNT = new int[]
         {
-            196,392,196
+            //196,392,196
+            4,4,4
         };
 
         //Настройка гиперпараметров нейросети

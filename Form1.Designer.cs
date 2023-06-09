@@ -29,29 +29,29 @@ namespace DiplomPrototype
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint9 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint10 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint11 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint12 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint13 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint14 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint15 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint76 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint77 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint78 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint79 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint80 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint81 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint82 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint83 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint84 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint85 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint86 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint87 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint88 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint89 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint90 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.label2 = new System.Windows.Forms.Label();
             this.Laber_NetworkAnswer = new System.Windows.Forms.Label();
             this.Button_DownloadNextDigit = new System.Windows.Forms.Button();
@@ -69,6 +69,7 @@ namespace DiplomPrototype
             this.chart_lossToEpoch = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label_epochCount = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.drawSymbolsClass1 = new DrawSymbols.DrawSymbolsClass(NetworkParameters.imageRows,NetworkParameters.imageColumns,NetworkParameters.standartComponentWeight,NetworkParameters.standartComponentHeight,NetworkParameters.drawComponentWeight,NetworkParameters.drawComponentHeight);
             ((System.ComponentModel.ISupportInitialize)(this.Chart_AccuracyGraphic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_lossToEpoch)).BeginInit();
             this.SuspendLayout();
@@ -152,7 +153,7 @@ namespace DiplomPrototype
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(33, 193);
+            this.label1.Location = new System.Drawing.Point(33, 137);
             this.label1.MinimumSize = new System.Drawing.Size(100, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(160, 42);
@@ -214,34 +215,34 @@ namespace DiplomPrototype
             // 
             this.Chart_AccuracyGraphic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Chart_AccuracyGraphic.BorderlineWidth = 0;
-            chartArea1.Area3DStyle.PointDepth = 1;
-            chartArea1.Area3DStyle.PointGapDepth = 1;
-            chartArea1.Area3DStyle.WallWidth = 2;
-            chartArea1.Name = "ChartArea1";
-            this.Chart_AccuracyGraphic.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.Chart_AccuracyGraphic.Legends.Add(legend1);
+            chartArea11.Area3DStyle.PointDepth = 1;
+            chartArea11.Area3DStyle.PointGapDepth = 1;
+            chartArea11.Area3DStyle.WallWidth = 2;
+            chartArea11.Name = "ChartArea1";
+            this.Chart_AccuracyGraphic.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.Chart_AccuracyGraphic.Legends.Add(legend11);
             this.Chart_AccuracyGraphic.Location = new System.Drawing.Point(1122, 481);
             this.Chart_AccuracyGraphic.Name = "Chart_AccuracyGraphic";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Символы, которые распознаёт нейросеть";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            series1.Points.Add(dataPoint5);
-            series1.Points.Add(dataPoint6);
-            series1.Points.Add(dataPoint7);
-            series1.Points.Add(dataPoint8);
-            series1.Points.Add(dataPoint9);
-            this.Chart_AccuracyGraphic.Series.Add(series1);
+            series11.ChartArea = "ChartArea1";
+            series11.Legend = "Legend1";
+            series11.Name = "Символы, которые распознаёт нейросеть";
+            series11.Points.Add(dataPoint76);
+            series11.Points.Add(dataPoint77);
+            series11.Points.Add(dataPoint78);
+            series11.Points.Add(dataPoint79);
+            series11.Points.Add(dataPoint80);
+            series11.Points.Add(dataPoint81);
+            series11.Points.Add(dataPoint82);
+            series11.Points.Add(dataPoint83);
+            series11.Points.Add(dataPoint84);
+            this.Chart_AccuracyGraphic.Series.Add(series11);
             this.Chart_AccuracyGraphic.Size = new System.Drawing.Size(654, 395);
             this.Chart_AccuracyGraphic.TabIndex = 18;
             this.Chart_AccuracyGraphic.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "Точность распознавания символов";
-            this.Chart_AccuracyGraphic.Titles.Add(title1);
+            title11.Name = "Title1";
+            title11.Text = "Точность распознавания символов";
+            this.Chart_AccuracyGraphic.Titles.Add(title11);
             // 
             // Button_UpdateStatistic
             // 
@@ -273,34 +274,34 @@ namespace DiplomPrototype
             // 
             this.chart_lossToEpoch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chart_lossToEpoch.BorderlineWidth = 0;
-            chartArea2.Area3DStyle.PointDepth = 1;
-            chartArea2.Area3DStyle.PointGapDepth = 1;
-            chartArea2.Area3DStyle.WallWidth = 2;
-            chartArea2.Name = "ChartArea1";
-            this.chart_lossToEpoch.ChartAreas.Add(chartArea2);
+            chartArea12.Area3DStyle.PointDepth = 1;
+            chartArea12.Area3DStyle.PointGapDepth = 1;
+            chartArea12.Area3DStyle.WallWidth = 2;
+            chartArea12.Name = "ChartArea1";
+            this.chart_lossToEpoch.ChartAreas.Add(chartArea12);
             this.chart_lossToEpoch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            legend2.Name = "Legend1";
-            this.chart_lossToEpoch.Legends.Add(legend2);
+            legend12.Name = "Legend1";
+            this.chart_lossToEpoch.Legends.Add(legend12);
             this.chart_lossToEpoch.Location = new System.Drawing.Point(474, 481);
             this.chart_lossToEpoch.Name = "chart_lossToEpoch";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.Name = "Усреднённая ошибка";
-            dataPoint10.IsEmpty = true;
-            series2.Points.Add(dataPoint10);
-            series2.Points.Add(dataPoint11);
-            series2.Points.Add(dataPoint12);
-            series2.Points.Add(dataPoint13);
-            series2.Points.Add(dataPoint14);
-            series2.Points.Add(dataPoint15);
-            this.chart_lossToEpoch.Series.Add(series2);
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series12.Legend = "Legend1";
+            series12.Name = "Усреднённая ошибка";
+            dataPoint85.IsEmpty = true;
+            series12.Points.Add(dataPoint85);
+            series12.Points.Add(dataPoint86);
+            series12.Points.Add(dataPoint87);
+            series12.Points.Add(dataPoint88);
+            series12.Points.Add(dataPoint89);
+            series12.Points.Add(dataPoint90);
+            this.chart_lossToEpoch.Series.Add(series12);
             this.chart_lossToEpoch.Size = new System.Drawing.Size(654, 395);
             this.chart_lossToEpoch.TabIndex = 21;
             this.chart_lossToEpoch.Text = "chart1";
-            title2.Name = "Title1";
-            title2.Text = "Усреднённая ошибка нейросети на каждой эпохе";
-            this.chart_lossToEpoch.Titles.Add(title2);
+            title12.Name = "Title1";
+            title12.Text = "Усреднённая ошибка нейросети на каждой эпохе";
+            this.chart_lossToEpoch.Titles.Add(title12);
             // 
             // label_epochCount
             // 
@@ -328,12 +329,24 @@ namespace DiplomPrototype
             this.label6.TabIndex = 22;
             this.label6.Text = "Пройдено эпох:";
             // 
+            // drawSymbolsClass1
+            // 
+            this.drawSymbolsClass1.IsDrawMode = false;
+            this.drawSymbolsClass1.Location = new System.Drawing.Point(12, 193);
+            this.drawSymbolsClass1.Name = "drawSymbolsClass1";
+            this.drawSymbolsClass1.Size = new System.Drawing.Size(224, 224);
+            this.drawSymbolsClass1.TabIndex = 24;
+            this.drawSymbolsClass1.Text = "drawSymbolsClass1";
+            this.drawSymbolsClass1.DoubleClick += new System.EventHandler(this.drawSymbolsClass1_DoubleClick);
+            this.drawSymbolsClass1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawSymbolsClass1_MouseMove);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1801, 1061);
+            this.Controls.Add(this.drawSymbolsClass1);
             this.Controls.Add(this.label_epochCount);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chart_lossToEpoch);
@@ -363,6 +376,7 @@ namespace DiplomPrototype
 
         #endregion
 
+        private DrawSymbols.DrawSymbolsClass drawSymbolsClass1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Laber_NetworkAnswer;
         private System.Windows.Forms.Button Button_DownloadNextDigit;
@@ -380,7 +394,6 @@ namespace DiplomPrototype
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_lossToEpoch;
         private System.Windows.Forms.Label label_epochCount;
         private System.Windows.Forms.Label label6;
-        private DrawSymbols.DrawSymbolsClass drawSymbolsClass1 = new DrawSymbols.DrawSymbolsClass(NetworkParameters.imageRows, NetworkParameters.imageColumns, NetworkParameters.standartComponentWeight, NetworkParameters.standartComponentHeight, NetworkParameters.drawComponentWeight, NetworkParameters.drawComponentHeight);
     }
 }
 
